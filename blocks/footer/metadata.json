@@ -1,0 +1,17 @@
+{
+  "variantName": "footer",
+  "baseBlock": "footer",
+  "canonicalModel": "configuration",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "comfortable",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "logo",
+    "structure": "nav"
+  },
+  "contentPattern": "Global site footer: logo, footer navigation links, social icons, and copyright/legal text, loaded from the footer fragment.",
+  "usage": "Global footer on every page.",
+  "options": [],
+  "memberVariantIds": ["footer-global"]
+}

@@ -1,0 +1,62 @@
+/* Block: tabs — CSS extracted from WKND source computed styles */
+
+/* Tab strip (source: .cmp-tabs__tablist — flex, wrap, margin 18px 0, no list style) */
+.tabs .tabs-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 18px 0;
+  padding: 0;
+  max-width: 100%;
+  list-style: none;
+  overflow-x: auto;
+}
+
+/* Tab labels (source: uppercase, 14px, weight 400, Source Sans Pro, padding 8px 16px) */
+.tabs .tabs-list button.tabs-tab {
+  flex: 0 0 max-content;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  padding: 8px 16px;
+  background-color: transparent;
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: initial;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.tabs .tabs-list button.tabs-tab p {
+  margin: 0;
+}
+
+/* Active tab (source: dark background #202020, white text) */
+.tabs .tabs-list button.tabs-tab[aria-selected='true'] {
+  background-color: var(--dark-color);
+  color: var(--background-color);
+}
+
+/* Tab panel (source: padding 0; spacing comes from tablist margin + paragraph margins) */
+.tabs .tabs-panel {
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+.tabs .tabs-panel[aria-hidden='true'] {
+  display: none;
+}
+
+/* Panel images (source: full-width responsive, object-fit cover) */
+.tabs .tabs-panel img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}

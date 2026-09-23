@@ -1,0 +1,52 @@
+.accordion details {
+  border-bottom: 1px solid #dadada;
+}
+
+.accordion details p {
+  margin-bottom: 0.8em;
+}
+
+.accordion details summary {
+  position: relative;
+  padding: 16px 46px 16px 0;
+  cursor: pointer;
+  list-style: none;
+  overflow: auto;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.accordion details summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion details summary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: 14px;
+  height: 2px;
+  background: currentcolor;
+  transition: transform 0.2s;
+}
+
+.accordion details summary::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 14px;
+  width: 2px;
+  height: 14px;
+  margin-top: -6px;
+  background: currentcolor;
+  transition: opacity 0.2s;
+}
+
+.accordion details[open] summary::before {
+  opacity: 0;
+}
+
+.accordion details .accordion-item-body {
+  padding: 0 0 16px;
+}

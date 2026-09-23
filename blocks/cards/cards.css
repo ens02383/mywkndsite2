@@ -1,19 +1,19 @@
+/* Block: cards — WKND teaser grid (image over title/description, borderless)
+   Values extracted from https://wknd.site/us/en.html (.image-list.list). */
+
 .cards > ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(257px, 1fr));
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 32px 14px;
 }
 
 .cards > ul > li {
-  border: 1px solid #dadada;
-  background-color: var(--background-color);
-}
-
-.cards .cards-card-body {
-  margin: 16px;
+  border: 0;
+  background-color: transparent;
+  text-align: left;
 }
 
 .cards .cards-card-image {
@@ -21,7 +21,63 @@
 }
 
 .cards > ul > li img {
+  display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 13 / 10;
   object-fit: cover;
+  border-radius: 0;
+}
+
+.cards .cards-card-body {
+  margin: 8px 0 0;
+}
+
+/* Title — WKND uses the body font (Source Sans Pro), uppercase, not the serif
+   heading default. Override global h3 (serif Asar 24px). */
+.cards .cards-card-body h3 {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 27px;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+.cards .cards-card-body h3 a:any-link {
+  color: var(--text-color);
+  text-decoration: none;
+}
+
+.cards .cards-card-body h3 a:hover {
+  text-decoration: none;
+}
+
+/* Description — small uppercase label, single line, ellipsis-truncated. */
+.cards .cards-card-body p {
+  margin: 16px 0 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+  color: #696969;
+  text-transform: uppercase;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Borderless teaser option — identical to the base WKND look. */
+.cards.minimal-dark-withimg > ul > li {
+  border: 0;
+  background-color: transparent;
+}
+
+.cards.minimal-dark-withimg .cards-card-body {
+  margin: 8px 0 0;
+}
+
+@media (width >= 900px) {
+  .cards > ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }

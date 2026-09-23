@@ -1,6 +1,13 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
+// Appearance options folded onto the cards block (see metadata.json). These are
+// CSS-driven; decorate only needs to tolerate their presence/absence.
+const OPTION_CLASSES = ['minimal-dark-withimg'];
+
 export default function decorate(block) {
+  // read known options defensively; unknown/extra classes are left untouched
+  [...block.classList].filter((c) => OPTION_CLASSES.includes(c));
+
   /* change to ul, li */
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {

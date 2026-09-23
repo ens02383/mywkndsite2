@@ -1,0 +1,32 @@
+{
+ "variantName": "cards",
+ "baseBlock": "cards",
+ "canonicalModel": "standalone",
+ "visualCharacteristics": {
+  "colorScheme": "light",
+  "density": "comfortable",
+  "hasBackgroundImage": false,
+  "hasGrid": true,
+  "imagePattern": "top",
+  "structure": "grid"
+ },
+ "contentPattern": "A responsive grid of cards, each with an image and a body (title + summary); an optional borderless teaser style.",
+ "usage": "Teaser card grids on home, listing, and hub pages.",
+ "options": [
+  {
+   "class": "minimal-dark-withimg",
+   "label": "Minimal Dark Withimg"
+  }
+ ],
+ "memberVariantIds": [
+  "cards",
+  "v_minimal_dark_withimg"
+ ],
+ "usageTracking": {
+  "pagesUsing": [
+   "/us/en"
+  ],
+  "reuseCount": 1,
+  "lastUsed": "2026-09-23T00:00:00"
+ }
+}

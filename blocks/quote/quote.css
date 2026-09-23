@@ -1,0 +1,16 @@
+.quote blockquote {
+  margin: 0;
+  padding: 0;
+}
+
+.quote .quote-quotation {
+  margin: 0;
+  font-style: italic;
+  text-align: center;
+}
+
+.quote .quote-attribution {
+  margin: 0.5em 0 0;
+  text-align: center;
+  font-style: normal;
+}

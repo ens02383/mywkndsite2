@@ -1,0 +1,43 @@
+{
+ "variantName": "hero",
+ "baseBlock": "hero",
+ "canonicalModel": "standalone",
+ "visualCharacteristics": {
+  "colorScheme": "dark",
+  "density": "spacious",
+  "hasBackgroundImage": true,
+  "hasGrid": false,
+  "imagePattern": "fullbleed",
+  "structure": "image + overlay"
+ },
+ "contentPattern": "A full-bleed image with an overlaid heading/content box; optionally rendered as a plain page title banner.",
+ "usage": "Page hero banner on home, listing, and article pages.",
+ "options": [
+  {
+   "class": "minimal-dark-withimg",
+   "label": "Minimal Dark Withimg"
+  },
+  {
+   "class": "minimal-dark-withimg-2",
+   "label": "Minimal Dark Withimg 2"
+  },
+  {
+   "class": "minimal-dark-withimg-3",
+   "label": "Minimal Dark Withimg 3"
+  }
+ ],
+ "memberVariantIds": [
+  "v_64d7a45c1296",
+  "v_ce80ccd0f1fa",
+  "v_8db045795bae",
+  "v_9a6067da1d9c"
+ ],
+ "usageTracking": {
+  "pagesUsing": [
+   "/us/en",
+   "/us/en/adventures"
+  ],
+  "reuseCount": 2,
+  "lastUsed": "2026-09-23T01:15:00"
+ }
+}

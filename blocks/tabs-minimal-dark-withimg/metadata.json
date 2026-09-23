@@ -1,0 +1,24 @@
+{
+  "variantName": "tabs-minimal-dark-withimg",
+  "baseBlock": "tabs",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "dark",
+    "density": "minimal",
+    "hasBackgroundImage": false,
+    "hasGrid": true,
+    "imagePattern": "large",
+    "structure": "filter tabs + card grid"
+  },
+  "contentPattern": "A row of category filter tabs above a responsive grid of image + title + summary cards; clicking a tab filters the visible cards.",
+  "usage": "Filterable adventures listing (ALL / CLIMBING / CYCLING / SKIING / SURFING / TRAVEL).",
+  "options": [],
+  "memberVariantIds": ["v_8ab7ece34e9a-3"],
+  "usageTracking": {
+    "pagesUsing": [
+      "/us/en/adventures"
+    ],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-23T01:15:00"
+  }
+}

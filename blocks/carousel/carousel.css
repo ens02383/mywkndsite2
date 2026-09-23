@@ -1,0 +1,213 @@
+/* Carousel — WKND hero. Design migrated from https://wknd.site/us/en.html
+ * Full-bleed image band with a centered white content box overlapping the
+ * image bottom (Asar heading, Source Sans Pro paragraph, yellow CTA),
+ * centered indicator dots and bottom-right chevron arrows.
+ * Values extracted from source computed styles (see migration-work/carousel-extracted.css).
+ */
+
+/* Full-bleed: neutralize the section wrapper's max-width + padding so the
+   image spans edge-to-edge. The white content box re-establishes its own
+   centered max-width below. */
+.carousel-wrapper {
+  max-width: 100% !important;
+  padding: 0 !important;
+}
+
+.carousel {
+  position: relative;
+}
+
+.carousel .carousel-slides-container {
+  position: relative;
+}
+
+.carousel .carousel-slides,
+.carousel .carousel-slide-indicators {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.carousel .carousel-slides {
+  display: flex;
+  overflow: scroll clip;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+}
+
+.carousel .carousel-slides::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel .carousel-slide {
+  position: relative;
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: block;
+  width: 100%;
+}
+
+/* --- Image band (full-bleed) --- */
+.carousel .carousel-slide .carousel-slide-image {
+  position: static;
+}
+
+.carousel .carousel-slide .carousel-slide-image picture {
+  display: block;
+}
+
+.carousel .carousel-slide .carousel-slide-image img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 2;
+  object-fit: cover;
+}
+
+/* --- White content box overlapping the image bottom --- */
+.carousel .carousel-slide .carousel-slide-content {
+  position: relative;
+  z-index: 1;
+  box-sizing: border-box;
+  width: auto;
+  margin: -60px 16px 0;
+  padding: 0 28px 8px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  text-align: left;
+}
+
+.carousel .carousel-slide .carousel-slide-content h2 {
+  margin: 18px 0 0;
+  font-family: var(--heading-font-family);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 54px;
+  color: var(--text-color);
+}
+
+.carousel .carousel-slide .carousel-slide-content p {
+  margin: 0;
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 31.5px;
+  color: var(--text-color);
+}
+
+/* CTA button (plain link in source, styled as the WKND yellow action button) */
+.carousel .carousel-slide .carousel-slide-content p:has(> a:only-child) {
+  margin: 18px 0;
+}
+
+.carousel .carousel-slide .carousel-slide-content a:any-link {
+  display: inline-block;
+  padding: 14px 35px;
+  background-color: var(--accent-color);
+  color: var(--accent-text-color);
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 21px;
+  letter-spacing: normal;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 0;
+}
+
+.carousel .carousel-slide .carousel-slide-content a:any-link:hover {
+  background-color: var(--text-color);
+  color: var(--background-color);
+  text-decoration: none;
+}
+
+/* --- Indicator dots (centered, below the box) --- */
+.carousel .carousel-slide-indicators {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 12px 0;
+  line-height: 0;
+}
+
+.carousel .carousel-slide-indicator {
+  margin: 0 7px;
+}
+
+.carousel .carousel-slide-indicator button {
+  width: 10px;
+  height: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background-color: rgb(175 175 175);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.carousel .carousel-slide-indicator button:disabled,
+.carousel .carousel-slide-indicator button:hover,
+.carousel .carousel-slide-indicator button:focus-visible {
+  background-color: rgb(0 0 0 / 80%);
+}
+
+/* --- Navigation arrows (chevrons, bottom-right) --- */
+.carousel .carousel-navigation-buttons {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 2;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+.carousel .carousel-navigation-buttons button {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background-color: transparent;
+  color: var(--text-color);
+  cursor: pointer;
+}
+
+.carousel .carousel-navigation-buttons button::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: calc(50% + 2px);
+  width: 11px;
+  height: 11px;
+  border: 2px solid;
+  border-bottom: 0;
+  border-left: 0;
+  transform: translate(-50%, -50%) rotate(-135deg);
+}
+
+.carousel .carousel-navigation-buttons button.slide-next::after {
+  left: calc(50% - 2px);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+/* --- Desktop --- */
+@media (width >= 900px) {
+  .carousel .carousel-slide .carousel-slide-image img {
+    aspect-ratio: 2 / 1;
+  }
+
+  .carousel .carousel-slide .carousel-slide-content {
+    width: 100%;
+    max-width: var(--content-max-width, 1200px);
+    margin: -180px auto 0;
+  }
+
+  .carousel .carousel-navigation-buttons {
+    right: calc((100% - min(100%, var(--content-max-width, 1200px))) / 2);
+  }
+}

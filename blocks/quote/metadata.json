@@ -1,0 +1,17 @@
+{
+  "variantName": "quote",
+  "baseBlock": "quote",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "spacious",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "noimg",
+    "structure": "quote"
+  },
+  "contentPattern": "A centered italic pull-quote with optional attribution line beneath it.",
+  "usage": "Emphasized pull quotes within magazine articles.",
+  "options": [],
+  "memberVariantIds": ["v_b7118a52fdcc"]
+}

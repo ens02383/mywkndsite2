@@ -1,0 +1,30 @@
+{
+ "variantName": "carousel",
+ "baseBlock": "carousel",
+ "canonicalModel": "standalone",
+ "visualCharacteristics": {
+  "colorScheme": "light",
+  "density": "spacious",
+  "hasBackgroundImage": true,
+  "hasGrid": false,
+  "imagePattern": "fullbleed",
+  "structure": "slides"
+ },
+ "contentPattern": "Full-bleed image slides with optional overlaid content, navigable by indicator dots and prev/next arrows.",
+ "usage": "Hero/gallery slideshow at the top of home, listing, and detail pages.",
+ "options": [],
+ "memberVariantIds": [
+  "v_85f1e746e380",
+  "v_85f1e746e380-1",
+  "v_85f1e746e380-2",
+  "v_85f1e746e380-3"
+ ],
+ "usageTracking": {
+  "pagesUsing": [
+   "/us/en",
+   "/us/en/adventures/bali-surf-camp"
+  ],
+  "reuseCount": 2,
+  "lastUsed": "2026-09-23T01:30:00"
+ }
+}

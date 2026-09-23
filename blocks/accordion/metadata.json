@@ -1,0 +1,17 @@
+{
+  "variantName": "accordion",
+  "baseBlock": "accordion",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "comfortable",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "noimg",
+    "structure": "list"
+  },
+  "contentPattern": "A vertical list of expandable rows; each row has a label that toggles a hidden body panel, with a plus/minus marker.",
+  "usage": "FAQ question/answer list.",
+  "options": [],
+  "memberVariantIds": ["v_4ecd3661fdd5"]
+}

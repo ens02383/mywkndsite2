@@ -1,0 +1,54 @@
+/* Block: breadcrumbs -- values extracted from WKND source (.cmp-breadcrumb) */
+
+.breadcrumbs .breadcrumbs-list {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  letter-spacing: normal;
+  list-style: none;
+}
+
+/* each crumb: uppercase, inline padding matches source (10px 5px) */
+.breadcrumbs .breadcrumbs-item {
+  display: flex;
+  align-items: center;
+  padding: 10px 5px;
+  color: var(--text-color);
+  text-transform: uppercase;
+}
+
+.breadcrumbs .breadcrumbs-item:first-child {
+  padding-left: 0;
+}
+
+/* separator: solid yellow right-pointing triangle (source uses wknd icon-font glyph) */
+.breadcrumbs .breadcrumbs-item:not(:first-child)::before {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-right: 5px;
+  border-top: 0.32em solid transparent;
+  border-bottom: 0.32em solid transparent;
+  border-left: 0.42em solid var(--accent-color);
+}
+
+/* links: bold (600), no underline, brand text color */
+.breadcrumbs .breadcrumbs-item a {
+  color: var(--text-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.breadcrumbs .breadcrumbs-item a:hover {
+  color: var(--text-color);
+  text-decoration: underline;
+}
+
+/* current page: lighter weight */
+.breadcrumbs .breadcrumbs-item span[aria-current='page'] {
+  font-weight: 400;
+}

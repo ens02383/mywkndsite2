@@ -1,0 +1,17 @@
+{
+  "variantName": "header",
+  "baseBlock": "header",
+  "canonicalModel": "configuration",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "comfortable",
+    "hasBackgroundImage": false,
+    "hasGrid": false,
+    "imagePattern": "logo",
+    "structure": "nav"
+  },
+  "contentPattern": "Global site header: logo, primary navigation links, search, and language/sign-in controls, loaded from the nav fragment.",
+  "usage": "Global header on every page.",
+  "options": [],
+  "memberVariantIds": ["header-global"]
+}

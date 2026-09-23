@@ -1,0 +1,5 @@
+/* Section Metadata is a configuration block — it applies classes to its section
+   and removes itself, so it should never be visible. */
+.section-metadata {
+  display: none;
+}

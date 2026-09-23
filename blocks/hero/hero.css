@@ -1,3 +1,10 @@
+/* Hero — WKND "imagebottom" teaser.
+   Full-bleed banner image with an overlaid white content box that rises over the
+   lower portion of the image (serif heading, body copy, yellow CTA).
+   Values extracted from source computed styles; colors/fonts mapped to brand vars.
+   Decorated DOM: .hero.block > [image row (picture)] + [content row (h2/p/p>a)]. */
+
+/* Full-bleed: release the hero from the 1200px section grid. */
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
@@ -5,33 +12,78 @@
 
 .hero {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+  padding: 0;
+  color: var(--text-color);
 }
 
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
+/* Banner image row — fills the width, 2:1 crop (source 1280x640). */
+.hero > div:has(picture) {
+  margin: 0;
 }
 
 .hero picture {
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
+  display: block;
+  width: 100%;
 }
 
 .hero img {
-  object-fit: cover;
+  display: block;
   width: 100%;
-  height: 100%;
+  height: auto;
+  aspect-ratio: 2 / 1;
+  object-fit: cover;
+}
+
+/* White content box — overlaps the bottom of the image (lower-left). */
+.hero > div:not(:has(picture)) {
+  position: relative;
+  z-index: 1;
+  margin: -40px 16px 0;
+  padding: 20px;
+  background-color: var(--background-color);
+}
+
+.hero h2 {
+  margin: 0;
+  font-family: var(--heading-font-family);
+  font-weight: 400;
+  font-size: var(--heading-font-size-xl); /* 36px */
+  line-height: 1.5; /* 54px at 36px */
+  color: var(--text-color);
+}
+
+.hero p {
+  margin: 18px 0 0;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-m); /* 18px */
+  line-height: 1.75; /* 31.5px at 18px */
+  color: var(--text-color);
+}
+
+/* Yellow CTA — source renders a plain link styled as a solid button. */
+.hero a:any-link {
+  display: inline-block;
+  padding: 14px 35px;
+  border: 0;
+  background-color: var(--accent-color);
+  color: var(--accent-text-color);
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs); /* 14px */
+  font-weight: 600;
+  line-height: 1.25;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.hero a:any-link:hover {
+  background-color: var(--text-color);
+  color: var(--background-color);
+  text-decoration: none;
 }
 
 @media (width >= 900px) {
-  .hero {
-    padding: 40px 32px;
+  .hero > div:not(:has(picture)) {
+    margin: -180px 44px 0;
+    padding: 28px;
   }
 }

@@ -1,20 +1,128 @@
+/* WKND footer — dark bar: logo + nav (left), Follow Us social (right), legal below.
+   Mobile-first: base is stacked; min-width:900px lays out the top band in a row. */
+
 footer {
-  background-color: var(--light-color);
+  background-color: var(--dark-color);
+  color: #ebebeb;
   font-size: var(--body-font-size-xs);
 }
 
 footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+  max-width: var(--content-max-width, 1200px);
+  margin: 0 auto;
+  padding: 32px;
 }
 
-footer .footer p {
+footer .footer p { margin: 0; }
+
+/* brand: logo + footer nav */
+footer .footer-brand > p { margin: 0 0 24px; }
+
+footer .footer-brand img {
+  width: auto;
+  height: 44px;
+}
+
+footer .footer-brand ul {
+  list-style: none;
   margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
+footer .footer-brand a {
+  color: #ebebeb;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+footer .footer-brand a:hover { text-decoration: underline; }
+
+/* social */
+footer .footer-social { padding-top: 0; }
+
+footer .footer-social h4 {
+  margin: 0 0 16px;
+  color: #ebebeb;
+  text-transform: uppercase;
+}
+
+footer .footer-social ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  gap: 16px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+footer .footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #3a3a3a;
+  color: #fff;
+  transition: opacity 0.2s, background-color 0.2s;
+}
+
+footer .footer-social a:hover {
+  opacity: 0.85;
+  background-color: var(--accent-color);
+  color: var(--accent-text-color);
+}
+
+footer .footer-social img {
+  width: 18px;
+  height: 18px;
+}
+
+/* legal */
+footer .footer-legal {
+  border-top: 1px solid #3a3a3a;
+  color: #a5a5a5;
+}
+
+footer .footer-legal p { margin: 0 0 12px; }
+
+/* stylelint-disable-next-line no-descending-specificity */
+footer .footer-legal a {
+  color: #a5a5a5;
+  text-decoration: underline;
+}
+
+footer .footer-legal a:hover { color: #ebebeb; }
+
+/* ===== Desktop ===== */
 @media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+  footer .footer-brand,
+  footer .footer-social {
+    display: inline-block;
+    vertical-align: top;
+    box-sizing: border-box;
   }
+
+  footer .footer-brand {
+    width: 70%;
+    padding-bottom: 16px;
+  }
+
+  footer .footer-brand ul {
+    flex-direction: row;
+    gap: 32px;
+    margin-top: 16px;
+  }
+
+  footer .footer-social {
+    width: 30%;
+    padding-top: 32px;
+    text-align: right;
+  }
+
+  footer .footer-social ul { justify-content: flex-end; }
 }

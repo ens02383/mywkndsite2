@@ -1,0 +1,26 @@
+{
+ "variantName": "breadcrumbs",
+ "baseBlock": "breadcrumbs",
+ "canonicalModel": "standalone",
+ "visualCharacteristics": {
+  "colorScheme": "dark",
+  "density": "minimal",
+  "hasBackgroundImage": false,
+  "hasGrid": false,
+  "imagePattern": "noimg",
+  "structure": "list"
+ },
+ "contentPattern": "An ordered horizontal trail of navigation links ending with the current page, separated by triangle markers.",
+ "usage": "Navigation breadcrumb shown near the top of detail pages.",
+ "options": [],
+ "memberVariantIds": [
+  "v_4d46829f22d9"
+ ],
+ "usageTracking": {
+  "pagesUsing": [
+   "/us/en/adventures/bali-surf-camp"
+  ],
+  "reuseCount": 1,
+  "lastUsed": "2026-09-23T01:30:00"
+ }
+}
