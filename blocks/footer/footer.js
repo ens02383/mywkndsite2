@@ -21,25 +21,52 @@ export default async function decorate(block) {
   block.textContent = '';
   if (!fragment) return;
 
-  const footer = document.createElement('div');
-  while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
+  // Gather raw content. DA may deliver everything in one <div>; classify by
+  // CONTENT, not by wrapper-div position.
+  const source = document.createElement('div');
+  while (fragment.firstElementChild) source.append(fragment.firstElementChild);
 
-  // Resolve fragment-relative image paths (logo, social icons) against the
-  // fragment location, not the current page URL.
+  // Resolve fragment-relative image paths (no-op on DA, which rewrites to /media_…).
   const base = window.location.pathname.startsWith('/content/') ? '/content/' : '/';
-  footer.querySelectorAll('img[src]').forEach((img) => {
+  source.querySelectorAll('img[src]').forEach((img) => {
     const src = img.getAttribute('src');
-    if (src && !src.startsWith('/') && !src.startsWith('http')) {
+    if (src && !src.startsWith('/') && !src.startsWith('http') && !src.startsWith('./')) {
       img.setAttribute('src', base + src);
     }
   });
 
-  // Tag sections for styling: brand (logo + nav), social (Follow Us), legal (copyright).
-  const sections = [...footer.children];
-  const names = ['footer-brand', 'footer-social', 'footer-legal'];
-  sections.forEach((section, i) => {
-    if (names[i]) section.classList.add(names[i]);
+  const topNodes = source.querySelector(':scope > div')
+    ? [...source.querySelector(':scope > div').children]
+    : [...source.children];
+
+  const footer = document.createElement('div');
+  const used = new Set();
+
+  // Identify the meaningful nodes by content.
+  const lists = topNodes.filter((el) => el.tagName === 'UL');
+  const logoNode = topNodes.find((el) => el.querySelector('img') && el.tagName !== 'UL');
+  const socialList = lists.find((ul) => ul.querySelector('img'));
+  const navList = lists.find((ul) => ul !== socialList);
+  const followHeading = topNodes.find((el) => /^h[1-6]$/i.test(el.tagName)
+    && /follow/i.test(el.textContent));
+
+  // Brand — logo + footer nav.
+  const footerBrand = document.createElement('div');
+  footerBrand.className = 'footer-brand';
+  [logoNode, navList].forEach((el) => { if (el) { footerBrand.append(el); used.add(el); } });
+
+  // Social — "Follow Us" heading + icon links.
+  const footerSocial = document.createElement('div');
+  footerSocial.className = 'footer-social';
+  [followHeading, socialList].forEach((el) => {
+    if (el) { footerSocial.append(el); used.add(el); }
   });
 
+  // Legal — everything else, in original order (copyright + attribution).
+  const footerLegal = document.createElement('div');
+  footerLegal.className = 'footer-legal';
+  topNodes.forEach((el) => { if (!used.has(el)) footerLegal.append(el); });
+
+  footer.append(footerBrand, footerSocial, footerLegal);
   block.append(footer);
 }

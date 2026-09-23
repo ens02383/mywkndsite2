@@ -274,8 +274,10 @@ header nav[aria-expanded='true'] .nav-tools {
   }
 
   /* On desktop, the source shows the four links flat; "Home" is a mobile-tree
-     wrapper only, so hide the redundant parent link and lay the children inline. */
-  header nav .nav-sections > ul > li > a { display: none; }
+     wrapper only, so hide the redundant parent link (bare <a> locally, or wrapped
+     in a <p> after DA processing) and lay the children inline. */
+  header nav .nav-sections > ul > li > a,
+  header nav .nav-sections > ul > li > p { display: none; }
 
   header nav .nav-sections ul ul {
     display: flex;

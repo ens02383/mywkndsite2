@@ -36,66 +36,86 @@ export default async function decorate(block) {
   block.textContent = '';
   if (!fragment) return;
 
-  const nav = document.createElement('nav');
-  nav.id = 'nav';
-  nav.setAttribute('aria-expanded', 'false');
-  while (fragment.firstElementChild) nav.append(fragment.firstElementChild);
+  // Collect the raw fragment content. DA may deliver everything inside a single
+  // <div>, or (locally) as three separate section divs — so gather all elements
+  // and classify by CONTENT, not by wrapper-div position.
+  const source = document.createElement('div');
+  while (fragment.firstElementChild) source.append(fragment.firstElementChild);
 
-  // Resolve fragment-relative image paths (e.g. "images/logo.svg") against the
-  // nav fragment location, not the current page URL. Localhost serves the
-  // fragment under /content; DA/EDS serves it at the site root.
-  const navBase = document.querySelector('meta[name="nav-image-base"]')?.content
-    || (window.location.pathname.startsWith('/content/') ? '/content/' : '/');
-  nav.querySelectorAll('img[src]').forEach((img) => {
+  // Resolve fragment-relative image paths ("images/logo.svg") against the fragment
+  // location, not the current page URL. (No-op on DA, which rewrites to /media_… .)
+  const navBase = window.location.pathname.startsWith('/content/') ? '/content/' : '/';
+  source.querySelectorAll('img[src]').forEach((img) => {
     const src = img.getAttribute('src');
-    if (src && !src.startsWith('/') && !src.startsWith('http')) {
+    if (src && !src.startsWith('/') && !src.startsWith('http') && !src.startsWith('./')) {
       img.setAttribute('src', navBase + src);
     }
   });
 
-  // Assign section roles: brand (logo), sections (primary links), tools (locale + sign-in)
-  const classes = ['brand', 'sections', 'tools'];
-  classes.forEach((c, i) => {
-    const section = nav.children[i];
-    if (section) section.classList.add(`nav-${c}`);
-  });
+  const nav = document.createElement('nav');
+  nav.id = 'nav';
+  nav.setAttribute('aria-expanded', 'false');
 
-  // Build the search control (not embedded in the fragment).
-  const navTools = nav.querySelector('.nav-tools');
-  if (navTools) {
-    const search = document.createElement('div');
-    search.className = 'nav-search';
-    search.innerHTML = `
-      <form role="search" action="/us/en/search">
-        <span class="nav-search-icon" aria-hidden="true"></span>
-        <input type="search" name="q" aria-label="Search" placeholder="Search">
-      </form>`;
-    navTools.prepend(search);
+  // Meaningful nodes — whether DA delivered them in one wrapper div or as several.
+  const topNodes = source.querySelector(':scope > div')
+    ? [...source.querySelector(':scope > div').children]
+    : [...source.children];
 
-    // Locale selector: turn the first tools list into a toggle dropdown.
-    // The toggle is an anchor (matching the source's <a href="#langNavToggle">en-US</a>)
-    // so the current locale label stays part of the nav content.
-    const localeList = navTools.querySelector('ul');
-    if (localeList) {
-      localeList.classList.add('nav-locale-list');
-      const current = localeList.querySelector('a');
-      const toggle = document.createElement('a');
-      toggle.href = '#langNavToggle';
-      toggle.className = 'nav-locale-toggle';
-      toggle.setAttribute('aria-expanded', 'false');
-      toggle.textContent = current ? current.textContent : 'en-US';
-      const localeWrap = document.createElement('div');
-      localeWrap.className = 'nav-locale';
-      localeList.replaceWith(localeWrap);
-      localeWrap.append(toggle, localeList);
-      toggle.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const open = toggle.getAttribute('aria-expanded') === 'true';
-        toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
-      });
-    }
+  // 1) Brand — the element containing the logo image.
+  const brandNode = topNodes.find((el) => el.querySelector('img')) || topNodes[0];
+  const navBrand = document.createElement('div');
+  navBrand.className = 'nav-brand';
+  if (brandNode) navBrand.append(brandNode);
+
+  // 2) Primary nav — the <ul> whose links point to internal content pages
+  //    (not the locale <ul> of language codes).
+  const lists = topNodes.filter((el) => el.tagName === 'UL');
+  const localeList = lists.find((ul) => [...ul.querySelectorAll('a')]
+    .every((a) => /^\/[a-z]{2}\/[a-z]{2}$/.test(a.getAttribute('href') || '')));
+  const primaryList = lists.find((ul) => ul !== localeList) || lists[0];
+  const navSections = document.createElement('div');
+  navSections.className = 'nav-sections';
+  if (primaryList) navSections.append(primaryList);
+
+  // 3) Tools — search (built here) + locale dropdown + sign-in.
+  const navTools = document.createElement('div');
+  navTools.className = 'nav-tools';
+
+  const search = document.createElement('div');
+  search.className = 'nav-search';
+  search.innerHTML = `
+    <form role="search" action="/us/en/search">
+      <span class="nav-search-icon" aria-hidden="true"></span>
+      <input type="search" name="q" aria-label="Search" placeholder="Search">
+    </form>`;
+  navTools.append(search);
+
+  if (localeList) {
+    localeList.classList.add('nav-locale-list');
+    const current = localeList.querySelector('a');
+    const toggle = document.createElement('a');
+    toggle.href = '#langNavToggle';
+    toggle.className = 'nav-locale-toggle';
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.textContent = current ? current.textContent : 'en-US';
+    const localeWrap = document.createElement('div');
+    localeWrap.className = 'nav-locale';
+    localeWrap.append(toggle, localeList);
+    navTools.append(localeWrap);
+    toggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const open = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', open ? 'false' : 'true');
+    });
   }
+
+  // Sign In — the <p>/link pointing at #sign-in.
+  const signIn = topNodes.find((el) => el.querySelector('a[href="#sign-in"]'))
+    || [...source.querySelectorAll('a[href="#sign-in"]')][0]?.closest('p');
+  if (signIn) navTools.append(signIn);
+
+  nav.append(navBrand, navSections, navTools);
 
   // hamburger for mobile
   const hamburger = document.createElement('div');
