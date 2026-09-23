@@ -81,7 +81,7 @@ header nav .nav-brand p { margin: 0; }
 
 header nav .nav-brand img {
   width: auto;
-  height: 40px;
+  height: 44px;
 }
 
 /* primary nav links */
@@ -109,7 +109,8 @@ header nav .nav-sections a {
   display: block;
   padding: 12px 0;
   color: var(--text-color);
-  font-weight: 600;
+  font-size: var(--body-font-size-xs); /* 14px, matches source */
+  font-weight: 400;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   text-decoration: none;

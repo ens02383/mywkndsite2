@@ -36,7 +36,8 @@ footer .footer-brand a {
   color: #ebebeb;
   text-decoration: none;
   text-transform: uppercase;
-  font-weight: 600;
+  font-size: var(--body-font-size-xs); /* 14px, matches source */
+  font-weight: 400;
   letter-spacing: 0.05em;
 }
 
@@ -64,10 +65,10 @@ footer .footer-social a {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
-  background-color: #3a3a3a;
-  color: #fff;
+  width: 48px;
+  height: 48px;
+  background-color: #ebebeb;
+  color: var(--dark-color);
   transition: opacity 0.2s, background-color 0.2s;
 }
 
@@ -78,14 +79,16 @@ footer .footer-social a:hover {
 }
 
 footer .footer-social img {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 
 /* legal */
 footer .footer-legal {
   border-top: 1px solid #3a3a3a;
   color: #a5a5a5;
+  font-size: var(--heading-size-xs); /* 12px, matches source */
+  line-height: 1.25;
 }
 
 footer .footer-legal p { margin: 0 0 12px; }
