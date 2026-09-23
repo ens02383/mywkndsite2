@@ -60,8 +60,11 @@ footer .footer-social ul {
   gap: 16px;
 }
 
+/* The icon "chip" — the <a> when present, or the <li> when DA flattens the
+   anchor away (leaving <li><img>). */
 /* stylelint-disable-next-line no-descending-specificity */
-footer .footer-social a {
+footer .footer-social a,
+footer .footer-social li {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -72,7 +75,8 @@ footer .footer-social a {
   transition: opacity 0.2s, background-color 0.2s;
 }
 
-footer .footer-social a:hover {
+footer .footer-social a:hover,
+footer .footer-social li:hover {
   opacity: 0.85;
   background-color: var(--accent-color);
   color: var(--accent-text-color);
