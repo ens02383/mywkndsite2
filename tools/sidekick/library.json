@@ -1,0 +1,20 @@
+{
+  "helix-blocks": {
+    "total": 8,
+    "offset": 0,
+    "limit": 8,
+    "data": [
+      { "name": "Carousel", "path": "/tools/sidekick/blocks/carousel" },
+      { "name": "Cards", "path": "/tools/sidekick/blocks/cards" },
+      { "name": "Columns", "path": "/tools/sidekick/blocks/columns" },
+      { "name": "Hero", "path": "/tools/sidekick/blocks/hero" },
+      { "name": "Tabs", "path": "/tools/sidekick/blocks/tabs" },
+      { "name": "Breadcrumbs", "path": "/tools/sidekick/blocks/breadcrumbs" },
+      { "name": "Accordion", "path": "/tools/sidekick/blocks/accordion" },
+      { "name": "Quote", "path": "/tools/sidekick/blocks/quote" }
+    ]
+  },
+  ":names": ["helix-blocks"],
+  ":version": 3,
+  ":type": "multi-sheet"
+}
