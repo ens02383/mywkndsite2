@@ -156,11 +156,25 @@ export function decorateMain(main) {
 }
 
 /**
+ * Derives the page language from the /{country}/{language}/ path prefix,
+ * e.g. /de/de/... -> de-DE, /gb/en/... -> en-GB. Falls back to en.
+ * @returns {string} BCP 47 language tag
+ */
+function getPageLang() {
+  const [country, language] = window.location.pathname
+    .replace(/^\/content\//, '/')
+    .split('/')
+    .filter(Boolean);
+  const isCode = (s) => /^[a-z]{2}$/.test(s || '');
+  return isCode(country) && isCode(language) ? `${language}-${country.toUpperCase()}` : 'en';
+}
+
+/**
  * Loads everything needed to get to LCP.
  * @param {Element} doc The container element
  */
 async function loadEager(doc) {
-  document.documentElement.lang = 'en';
+  document.documentElement.lang = getPageLang();
   decorateTemplateAndTheme();
   const main = doc.querySelector('main');
   if (main) {

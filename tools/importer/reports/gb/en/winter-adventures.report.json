@@ -1,0 +1,14 @@
+{
+  "status": "success",
+  "url": "http://localhost:8765/gb/en/winter-adventures.html",
+  "path": "gb/en/winter-adventures",
+  "timestamp": "2026-09-24T23:07:09.430Z",
+  "title": "Winter Adventures",
+  "template": "winter-adventures",
+  "blocks": [
+    "carousel",
+    "columns",
+    "cards",
+    "hero"
+  ]
+}
