@@ -8,7 +8,58 @@
       ],
       "coverageGaps": [],
       "description": "Hub page: page title followed by repeating sections, each a heading, intro paragraph, and a responsive grid of image/avatar cards",
-      "blocks": []
+      "blocks": [
+        {
+          "name": "cards-contributor",
+          "instances": [
+            "section.experiencefragment.cmp-experience-fragment--contributor"
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "id": "s1",
+          "name": "Page title",
+          "selector": [
+            "main .title:not(.cmp-title--underline)"
+          ],
+          "style": null,
+          "blocks": [],
+          "defaultContent": [
+            "main .title h1"
+          ]
+        },
+        {
+          "id": "s2",
+          "name": "Our Contributors",
+          "selector": [
+            ".title.cmp-title--underline"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-contributor"
+          ],
+          "defaultContent": [
+            ".title.cmp-title--underline",
+            ".text.cmp-text--font-small"
+          ]
+        },
+        {
+          "id": "s3",
+          "name": "WKND Guides",
+          "selector": [
+            ".title.cmp-title--underline ~ .title.cmp-title--underline"
+          ],
+          "style": null,
+          "blocks": [
+            "cards-contributor"
+          ],
+          "defaultContent": [
+            ".title.cmp-title--underline ~ .title.cmp-title--underline",
+            ".text.cmp-text--font-small ~ .text.cmp-text--font-small"
+          ]
+        }
+      ]
     },
     {
       "name": "adventure-detail",
