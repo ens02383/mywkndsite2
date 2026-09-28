@@ -57,8 +57,9 @@ export default async function decorate(block) {
   nav.setAttribute('aria-expanded', 'false');
 
   // Meaningful nodes — whether DA delivered them in one wrapper div or as several.
-  const topNodes = source.querySelector(':scope > div')
-    ? [...source.querySelector(':scope > div').children]
+  const sectionDivs = [...source.querySelectorAll(':scope > div')];
+  const topNodes = sectionDivs.length
+    ? sectionDivs.flatMap((div) => [...div.children])
     : [...source.children];
 
   // 1) Brand — the element containing the logo image.
