@@ -78,9 +78,26 @@ export default async function decorate(block) {
   navSections.className = 'nav-sections';
   if (primaryList) navSections.append(primaryList);
 
-  // 3) Tools — search (built here) + locale dropdown + sign-in.
+  // Current-page indication: match link pathname to the page (ignoring .html / trailing slash).
+  const normalizePath = (path) => path.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
+  const currentPath = normalizePath(window.location.pathname);
+  navSections.querySelectorAll('a[href]').forEach((a) => {
+    let linkPath;
+    try {
+      linkPath = normalizePath(new URL(a.href, window.location.href).pathname);
+    } catch (e) {
+      return;
+    }
+    if (linkPath === currentPath) a.setAttribute('aria-current', 'page');
+  });
+
+  // 3) Tools — search (built here) + utility (locale dropdown + sign-in).
+  //    On desktop the utility group renders as the dark top bar; in the mobile
+  //    drawer it stays in the tools column (search, locale, sign-in).
   const navTools = document.createElement('div');
   navTools.className = 'nav-tools';
+  const navUtility = document.createElement('div');
+  navUtility.className = 'nav-utility';
 
   const search = document.createElement('div');
   search.className = 'nav-search';
@@ -93,16 +110,24 @@ export default async function decorate(block) {
 
   if (localeList) {
     localeList.classList.add('nav-locale-list');
-    const current = localeList.querySelector('a');
+    const localeLinks = [...localeList.querySelectorAll('a')];
+    const localePath = (a) => normalizePath(new URL(a.href, window.location.href).pathname);
+    const current = localeLinks.find((a) => {
+      const path = localePath(a);
+      return currentPath === path || currentPath.startsWith(`${path}/`);
+    }) || localeLinks[0];
     const toggle = document.createElement('a');
     toggle.href = '#langNavToggle';
     toggle.className = 'nav-locale-toggle';
     toggle.setAttribute('aria-expanded', 'false');
     toggle.textContent = current ? current.textContent : 'en-US';
+    // country code from the locale path (/us/en -> "us"), used for the flag icon
+    const country = current ? localePath(current).split('/')[1] : '';
+    if (country) toggle.dataset.country = country;
     const localeWrap = document.createElement('div');
     localeWrap.className = 'nav-locale';
     localeWrap.append(toggle, localeList);
-    navTools.append(localeWrap);
+    navUtility.append(localeWrap);
     toggle.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
@@ -114,7 +139,8 @@ export default async function decorate(block) {
   // Sign In — the <p>/link pointing at #sign-in.
   const signIn = topNodes.find((el) => el.querySelector('a[href="#sign-in"]'))
     || [...source.querySelectorAll('a[href="#sign-in"]')][0]?.closest('p');
-  if (signIn) navTools.append(signIn);
+  if (signIn) navUtility.append(signIn);
+  if (navUtility.children.length) navTools.append(navUtility);
 
   nav.append(navBrand, navSections, navTools);
 

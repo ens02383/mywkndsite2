@@ -50,6 +50,9 @@
     --body-font-size-m: 18px;
     --body-font-size-s: 16px;
     --body-font-size-xs: 14px;
+
+    /* 25px utility bar + 169px logo/nav row; reserves space before header.css loads */
+    --nav-height: 194px;
   }
 }
 
@@ -304,14 +307,21 @@ main > .section {
   margin: 40px 0;
 }
 
+/* 1200px box incl. padding = WKND's 1164px grid minus 14px gutters (1136px content at desktop) */
 main > .section > div {
-  max-width: 1200px;
+  box-sizing: border-box;
+  max-width: var(--content-max-width, 1200px);
   margin: auto;
   padding: 0 24px;
 }
 
 main > .section:first-of-type {
   margin-top: 0;
+}
+
+/* WKND footer sits 48px below the last content row */
+main > .section:last-of-type {
+  margin-bottom: 48px;
 }
 
 @media (width >= 900px) {
