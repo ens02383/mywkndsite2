@@ -35,8 +35,9 @@ export default async function decorate(block) {
     }
   });
 
-  const topNodes = source.querySelector(':scope > div')
-    ? [...source.querySelector(':scope > div').children]
+  const sectionDivs = [...source.querySelectorAll(':scope > div')];
+  const topNodes = sectionDivs.length
+    ? sectionDivs.flatMap((div) => [...div.children])
     : [...source.children];
 
   const footer = document.createElement('div');
