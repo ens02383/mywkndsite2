@@ -34,7 +34,7 @@
   height: 164px;
   margin: 7px 0;
   object-fit: cover;
-  border-radius: 50%;
+  border-radius: 0;
 }
 
 .cards-contributor .cards-contributor-card-body {

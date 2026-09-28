@@ -326,11 +326,12 @@ main > .cards-contributor-container:has(+ .cards-contributor-container) {
 }
 
 main > .cards-contributor-container + .cards-contributor-container {
-  margin-top: 0;
+  margin-top: 120px;
 }
 
 main > .cards-contributor-container > .default-content-wrapper h2 {
   margin-top: 27px;
+  text-transform: uppercase;
 }
 
 main > .cards-contributor-container > .default-content-wrapper h2::after {
