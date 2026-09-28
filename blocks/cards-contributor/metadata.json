@@ -1,0 +1,22 @@
+{
+  "variantName": "cards-contributor",
+  "baseBlock": "cards",
+  "canonicalModel": "standalone",
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "comfortable",
+    "purpose": "profile",
+    "imagePattern": "avatar-circle",
+    "hasGrid": true,
+    "structure": "circular avatar + centered name + uppercase role + social icon links",
+    "details": "4-col grid on desktop; ~164px circular avatar; serif h3 name centered; bold uppercase role with pipes; row of 3 dark square icon-only social buttons"
+  },
+  "contentPattern": "Grid of person profiles: one row per person; cell 1 circular avatar picture, cell 2 name (h3), role line, and a list of social icon links (Facebook, Twitter, Instagram).",
+  "options": [],
+  "memberVariantIds": ["cards-contributor"],
+  "usage": {
+    "pagesUsing": ["https://wknd.site/us/en/about-us.html"],
+    "reuseCount": 1,
+    "lastUsed": "2026-09-28"
+  }
+}

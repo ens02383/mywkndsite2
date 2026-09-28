@@ -1,0 +1,148 @@
+/* Block: cards-contributor — WKND "Our Contributors" profile grid
+   (https://wknd.site/us/en/about-us.html): circular avatar, centered serif
+   name, uppercase role line, contiguous row of dark square social icons.
+   Values below are the source's computed styles (aem-Grid columns with
+   14px + 14px gutters, 9px/18px vertical padding, no inter-row gap). */
+
+/* The source grid bleeds 14px past the heading column on each side so the
+   card content lines up 14px inside the section heading. */
+.cards-contributor > ul {
+  list-style: none;
+  margin: 0 -14px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+}
+
+.cards-contributor > ul > li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 0;
+  padding: 9px 28px 18px;
+  text-align: center;
+}
+
+.cards-contributor .cards-contributor-card-image {
+  line-height: 0;
+}
+
+.cards-contributor .cards-contributor-card-image img {
+  display: block;
+  width: 164px;
+  height: 164px;
+  margin: 7px 0;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.cards-contributor .cards-contributor-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 7px;
+}
+
+.cards-contributor .cards-contributor-card-body > * {
+  margin: 0;
+}
+
+.cards-contributor .cards-contributor-card-body > .cards-contributor-name {
+  margin: 0 0 6px;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-font-size-l);
+  font-weight: 400;
+  line-height: 36px;
+  color: var(--text-color);
+}
+
+.cards-contributor .cards-contributor-card-body > .cards-contributor-role {
+  margin: 0 0 3.5px;
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  line-height: 21px;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+
+/* Social icons — one dark bar of 48px icon-only buttons, no gap between.
+   Glyphs are masks so they take the button's text color (#ebebeb). */
+.cards-contributor .cards-contributor-card-body > .cards-contributor-social {
+  list-style: none;
+  margin: 0;
+  padding: 18px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0;
+}
+
+.cards-contributor .cards-contributor-social li {
+  margin: 0;
+}
+
+.cards-contributor .cards-contributor-social-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background-color: var(--dark-color);
+  color: rgb(235 235 235);
+  font-size: var(--body-font-size-xs);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.cards-contributor .cards-contributor-social-icon {
+  display: block;
+  width: 21px;
+  height: 21px;
+  background-color: currentcolor;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+}
+
+/* Source uses a bare "f" glyph (17.5px tall), not the circled footer logo. */
+.cards-contributor .cards-contributor-social-facebook .cards-contributor-social-icon {
+  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z'/%3E%3C/svg%3E");
+  mask-size: auto 17.5px;
+}
+
+/* Source bird glyph is 21.875 x 17.5px; the shared SVG needs a 23px box. */
+.cards-contributor .cards-contributor-social-twitter .cards-contributor-social-icon {
+  width: 23px;
+  height: 23px;
+  mask-image: url('../../images/twitter.svg');
+}
+
+.cards-contributor .cards-contributor-social-instagram .cards-contributor-social-icon {
+  mask-image: url('../../images/instagram.svg');
+}
+
+/* Accessible name stays in the DOM; visually hidden. */
+.cards-contributor .cards-contributor-social-label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Source breakpoints: phone 1 col, tablet (768–1024) 2 cols, desktop 4 cols. */
+@media (width >= 768px) {
+  .cards-contributor > ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (width > 1024px) {
+  .cards-contributor > ul {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
