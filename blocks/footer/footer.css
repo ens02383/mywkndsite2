@@ -1,5 +1,6 @@
-/* WKND footer — dark bar: logo + nav (left), Follow Us social (right), legal below.
-   Mobile-first: base is stacked; min-width:900px lays out the top band in a row. */
+/* WKND footer — dark bar: logo + nav + Follow Us social on one row, legal below.
+   Mobile-first: base is stacked; min-width:900px lays out the top band in a row.
+   Values measured from wknd.site (footer.cmp-experiencefragment--footer @1440). */
 
 footer {
   background-color: var(--dark-color);
@@ -7,10 +8,12 @@ footer {
   font-size: var(--body-font-size-xs);
 }
 
+/* source: footer padding 16px 0 24px; 1136px content box (1200 incl. 32px gutters) */
 footer .footer > div {
+  box-sizing: border-box;
   max-width: var(--content-max-width, 1200px);
   margin: 0 auto;
-  padding: 32px;
+  padding: 16px 24px 24px;
 }
 
 footer .footer p { margin: 0; }
@@ -19,8 +22,9 @@ footer .footer p { margin: 0; }
 footer .footer-brand > p { margin: 0 0 24px; }
 
 footer .footer-brand img {
-  width: auto;
-  height: 44px;
+  display: block;
+  width: 128px;
+  height: auto;
 }
 
 footer .footer-brand ul {
@@ -38,10 +42,17 @@ footer .footer-brand a {
   text-transform: uppercase;
   font-size: var(--body-font-size-xs); /* 14px, matches source */
   font-weight: 400;
-  letter-spacing: 0.05em;
+  letter-spacing: normal;
 }
 
-footer .footer-brand a:hover { text-decoration: underline; }
+footer .footer-brand a:hover,
+footer .footer-brand a:focus-visible { text-decoration: underline; }
+
+/* current page (set by footer.js) — source: #f7f7f7 + underline */
+footer .footer-brand a[aria-current="page"] {
+  color: #f7f7f7;
+  text-decoration: underline;
+}
 
 /* social */
 footer .footer-social { padding-top: 0; }
@@ -52,12 +63,13 @@ footer .footer-social h4 {
   text-transform: uppercase;
 }
 
+/* one contiguous strip of 48px chips, no gaps */
 footer .footer-social ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 16px;
+  gap: 0;
 }
 
 /* The icon "chip" — the <a> when present, or the <li> when DA flattens the
@@ -87,49 +99,84 @@ footer .footer-social img {
   height: 20px;
 }
 
-/* legal */
+/* legal — source separator is cmp-separator--hidden: 36px spacer, no rule */
 footer .footer-legal {
-  border-top: 1px solid #3a3a3a;
-  color: #a5a5a5;
+  padding-top: 36px;
+  color: #f7f7f7;
   font-size: var(--heading-size-xs); /* 12px, matches source */
-  line-height: 1.25;
+  line-height: 1.25; /* 15px */
+  text-align: justify;
 }
 
-footer .footer-legal p { margin: 0 0 12px; }
+footer .footer-legal p { margin: 0 0 13.5px; }
 
 /* stylelint-disable-next-line no-descending-specificity */
 footer .footer-legal a {
-  color: #a5a5a5;
+  color: #f7f7f7;
   text-decoration: underline;
 }
 
-footer .footer-legal a:hover { color: #ebebeb; }
+footer .footer-legal a:hover { color: #fff; }
 
 /* ===== Desktop ===== */
 @media (width >= 900px) {
-  footer .footer-brand,
-  footer .footer-social {
-    display: inline-block;
-    vertical-align: top;
-    box-sizing: border-box;
+  footer .footer > div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 16px 32px 24px;
   }
 
+  /* top row: 68px tall in source (logo column) */
   footer .footer-brand {
-    width: 70%;
-    padding-bottom: 16px;
+    display: flex;
+    align-items: flex-start;
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 68px;
   }
 
+  /* logo column: 194px (2/12 grid col), image 7px from top */
+  footer .footer-brand > p {
+    flex: 0 0 194px;
+    margin: 0;
+  }
+
+  footer .footer-brand img { margin: 7px 0; }
+
+  /* nav: 15px top padding; links inline with 15px 17px padding in a 27px line box */
   footer .footer-brand ul {
-    flex-direction: row;
-    gap: 32px;
-    margin-top: 16px;
+    flex-flow: row wrap;
+    gap: 0;
+    padding-top: 15px;
   }
 
+  footer .footer-brand li {
+    font-size: 18px;
+    line-height: 27px;
+  }
+
+  footer .footer-brand li a {
+    display: inline;
+    padding: 15px 17px;
+    line-height: 21px;
+  }
+
+  /* "Follow Us" label left of the icon strip; strip ends 36px short of the
+     content edge (source 2-col grid cell holding 3x48px buttons) */
   footer .footer-social {
-    width: 30%;
-    padding-top: 32px;
+    display: flex;
+    align-items: flex-start;
+    flex: 0 0 auto;
+    margin: 0 36px 0 auto;
+    padding-top: 0;
     text-align: right;
   }
 
-  footer .footer-social ul { justify-content: flex-end; }
+  footer .footer-social h4 { margin: 1.33em 14px 0 0; }
+
+  footer .footer-legal {
+    flex: 0 0 100%;
+    box-sizing: border-box;
+  }
 }

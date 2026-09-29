@@ -68,6 +68,21 @@ export default async function decorate(block) {
   footerLegal.className = 'footer-legal';
   topNodes.forEach((el) => { if (!used.has(el)) footerLegal.append(el); });
 
+  // Mark the current page's footer nav link (source underlines it).
+  if (navList) {
+    const normalize = (path) => path.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
+    const current = normalize(window.location.pathname);
+    navList.querySelectorAll('a[href]').forEach((a) => {
+      let path;
+      try {
+        path = normalize(new URL(a.getAttribute('href'), window.location.href).pathname);
+      } catch (e) {
+        return;
+      }
+      if (path === current) a.setAttribute('aria-current', 'page');
+    });
+  }
+
   footer.append(footerBrand, footerSocial, footerLegal);
   block.append(footer);
 }

@@ -118,6 +118,12 @@ header nav .nav-sections a {
 
 header nav .nav-sections a:hover { color: var(--link-color); }
 
+/* current page (aria-current set in header.js) — WKND yellow block */
+header nav .nav-sections a[aria-current='page'] {
+  background-color: var(--accent-color);
+  color: var(--accent-text-color);
+}
+
 /* tools: search, locale, sign-in */
 header nav .nav-tools {
   grid-area: tools;
@@ -136,11 +142,13 @@ header nav .nav-search form {
   background: var(--light-color);
 }
 
+/* WKND search glyph (handle bottom-left), path taken from the source icon SVG */
 header nav .nav-search-icon {
+  flex: none;
   width: 16px;
   height: 16px;
   background: var(--text-color);
-  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>') center / contain no-repeat;
+  mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1152 1152"><path d="M672 0C406.903 0 192 214.903 192 480c0 95.7 28.011 184.855 76.275 259.725C181.646 826.354 48.075 959.925 36 972c-18 18-36 36-36 72s18 54 36 72 36.012 36 72 36 54-18 72-36c12.075-12.075 145.646-145.646 232.275-232.275C487.144 931.988 576.3 960 672 960c265.097 0 480-214.903 480-480C1152 214.903 937.097 0 672 0zm0 816c-185.568 0-336-150.433-336-336 0-185.568 150.432-336 336-336 185.567 0 336 150.432 336 336 0 185.567-150.433 336-336 336z"/></svg>') center / contain no-repeat;
 }
 
 header nav .nav-search input {
@@ -150,6 +158,10 @@ header nav .nav-search input {
   outline: none;
   width: 100%;
 }
+
+/* utility group (locale + sign-in): top bar on desktop; transparent to the
+   drawer's flex column on mobile, so the drawer layout is unchanged */
+header nav .nav-utility { display: contents; }
 
 header nav .nav-locale { position: relative; }
 
@@ -180,10 +192,10 @@ header nav .nav-locale-list a {
   text-decoration: none;
 }
 
-header nav .nav-tools > p { margin: 0; }
+header nav .nav-utility > p { margin: 0; }
 
 /* stylelint-disable-next-line no-descending-specificity */
-header nav .nav-tools > p a {
+header nav .nav-utility > p a {
   color: var(--text-color);
   font-weight: 600;
   text-transform: uppercase;
@@ -245,32 +257,68 @@ header nav[aria-expanded='true'] .nav-tools {
   padding: 16px;
 }
 
-/* ===== Desktop ===== */
+/* ===== Desktop =====
+   WKND desktop header (source: 1440px viewport):
+   - 25px dark utility bar: SIGN IN + locale toggle, right-aligned in the 1136px column
+   - 169px white row: logo (y 82) | links (right-aligned) | 166px search box
+   Total 194px, so page content starts 194px down. */
 @media (width >= 900px) {
+  header {
+    /* scoped override: styles.css sizes <header> with var(--nav-height) */
+    --nav-height: 194px;
+  }
+
+  header .nav-wrapper {
+    border-bottom: 0;
+    background: linear-gradient(var(--dark-color) 25px, var(--background-color) 25px);
+  }
+
   header nav {
-    grid-template: 'brand sections tools' var(--nav-height) / auto 1fr auto;
+    grid-template:
+      'utility utility utility' 25px
+      'brand sections search' 169px / auto 1fr 166px;
+    column-gap: 28px;
+    align-items: start;
     height: var(--nav-height);
     padding: 0 32px;
-    align-items: center;
   }
 
   header nav[aria-expanded='true'] {
     height: var(--nav-height);
     overflow: visible;
+    align-items: start;
+    padding: 0 32px;
   }
 
   header nav .nav-hamburger { display: none; }
 
-  header nav .nav-sections {
-    display: block;
-    justify-self: end;
+  /* brand: 128x48 logo, top at y 82 (57px into the main row) */
+  header nav .nav-brand,
+  header nav[aria-expanded='true'] .nav-brand {
+    margin-top: 57px;
+    padding: 0;
   }
 
-  header nav .nav-sections > ul {
+  header nav .nav-brand a,
+  header nav .nav-brand img { display: block; }
+
+  header nav .nav-brand img { height: 48px; }
+
+  /* primary links: flush 17px-padded items, 48px tall, top at y 81 */
+  header nav .nav-sections,
+  header nav[aria-expanded='true'] .nav-sections {
+    display: block;
+    justify-self: end;
+    width: auto;
+    margin-top: 56px;
+  }
+
+  header nav .nav-sections > ul,
+  header nav[aria-expanded='true'] .nav-sections > ul {
     flex-direction: row;
-    gap: 32px;
+    gap: 0;
     padding: 0;
-    align-items: center;
+    width: auto;
   }
 
   /* On desktop, the source shows the four links flat; "Home" is a mobile-tree
@@ -279,39 +327,135 @@ header nav[aria-expanded='true'] .nav-tools {
   header nav .nav-sections > ul > li > a,
   header nav .nav-sections > ul > li > p { display: none; }
 
-  header nav .nav-sections ul ul {
+  /* stylelint-disable-next-line no-descending-specificity */
+  header nav .nav-sections ul ul,
+  header nav[aria-expanded='true'] .nav-sections ul ul {
     display: flex;
     flex-direction: row;
-    gap: 32px;
+    gap: 0;
+    width: auto;
+  }
+
+  header nav[aria-expanded='true'] .nav-sections li { width: auto; }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  header nav .nav-sections a,
+  header nav[aria-expanded='true'] .nav-sections a {
+    padding: 15px 17px;
+    font-size: var(--body-font-size-xs);
+    line-height: 18px;
+    letter-spacing: normal;
   }
 
   /* stylelint-disable-next-line no-descending-specificity */
-  header nav .nav-sections a { padding: 0; }
+  header nav .nav-sections a:hover {
+    background-color: var(--accent-color);
+    color: var(--accent-text-color);
+  }
 
-  header nav .nav-tools {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 24px;
-    padding: 0;
-    margin-left: 32px;
+  /* tools wrapper dissolves so search + utility take their own grid areas */
+  header nav .nav-tools,
+  header nav[aria-expanded='true'] .nav-tools { display: contents; }
+
+  /* search: 166x42 box, top at y 85, glyph 8px in, uppercase 12px placeholder */
+  header nav .nav-search {
+    grid-area: search;
+    margin-top: 60px;
   }
 
   header nav .nav-search form {
-    background: var(--light-color);
-    padding: 6px 12px;
-    min-width: 180px;
+    position: relative;
+    display: block;
+    height: 42px;
+    border: 0;
+    padding: 0;
+    background: rgb(235 235 235 / 54%);
+  }
+
+  header nav .nav-search-icon {
+    position: absolute;
+    top: 13px;
+    left: 8px;
+    pointer-events: none;
+  }
+
+  header nav .nav-search input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 42px;
+    padding: 1px 32px;
+    color: var(--text-color);
+    font: 12px arial, sans-serif;
+  }
+
+  header nav .nav-search input::placeholder {
+    color: #757575;
+    text-transform: uppercase;
+    opacity: 1;
+  }
+
+  /* utility bar: [SIGN IN] 28px [flag EN-US v] in a 166px column above the search */
+  header nav .nav-utility {
+    grid-area: utility;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: flex-start;
+    gap: 28px;
+    height: 25px;
+    font-size: var(--body-font-size-xs);
+    line-height: 21px;
+  }
+
+  header nav .nav-locale { width: 166px; }
+
+  header nav .nav-locale-toggle {
+    display: inline-block;
+    padding: 0 14px 0 0;
+    color: rgb(235 235 235);
+    font-size: var(--body-font-size-xs);
+    font-weight: 400;
+    line-height: 21px;
+    text-decoration: none;
+  }
+
+  header nav .nav-locale-toggle[data-country='us'] {
+    padding-left: 35px;
+    background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48"><rect x="2" y="10" width="44" height="27" fill="%23ECEFF1"/><path fill="%23F44336" d="M2 10h44v3H2zm0 6h44v3H2zm0 6h44v3H2zm0 6h44v3H2zm0 6h44v3H2z"/><rect x="2" y="10" width="21" height="15" fill="%233F51B5"/><path d="M3.3 13.5h19M4.3 17.5h18M3.3 21.5h19" stroke="%23fff" stroke-width="1.6" stroke-dasharray="1.6 2.4"/></svg>') 0 -1px / 25px no-repeat;
+  }
+
+  /* chevron */
+  header nav .nav-locale-toggle::after {
+    content: '';
+    display: inline-block;
+    position: relative;
+    top: 0.35em;
+    left: 0.45em;
+    width: 0.45em;
+    height: 0.45em;
+    border-top: 1px solid currentcolor;
+    border-right: 1px solid currentcolor;
+    transform: rotate(135deg);
+    vertical-align: top;
   }
 
   header nav .nav-locale-list {
     position: absolute;
     top: 100%;
     right: 0;
-    margin-top: 8px;
+    margin-top: 4px;
     padding: 8px 12px;
     background: var(--background-color);
     border: 1px solid #dadada;
     min-width: 120px;
     z-index: 3;
+    line-height: 1.6;
+  }
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  header nav .nav-utility > p a {
+    color: rgb(235 235 235);
+    font-size: var(--body-font-size-xs);
+    font-weight: 400;
+    line-height: 21px;
   }
 }
