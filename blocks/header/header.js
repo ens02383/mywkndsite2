@@ -136,9 +136,11 @@ export default async function decorate(block) {
     });
   }
 
-  // Sign In — the <p>/link pointing at #sign-in.
-  const signIn = topNodes.find((el) => el.querySelector('a[href="#sign-in"]'))
-    || [...source.querySelectorAll('a[href="#sign-in"]')][0]?.closest('p');
+  // Sign In — the <p>/link pointing at #sign-in, or labelled "Sign In"
+  // (DA rewrites hash-only hrefs to "/").
+  const signInLink = source.querySelector('a[href="#sign-in"]')
+    || [...source.querySelectorAll('a')].find((a) => /^sign\s*in$/i.test(a.textContent.trim()));
+  const signIn = signInLink && (signInLink.closest('p') || signInLink);
   if (signIn) navUtility.append(signIn);
   if (navUtility.children.length) navTools.append(navUtility);
 
